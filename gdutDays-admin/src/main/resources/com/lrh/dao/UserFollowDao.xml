@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--MyBatis配置文件-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lrh.dao.UserFollowDao">
+
+
+    <select id="getFollowListById" resultType="com.lrh.entity.vo.UserFollowVo">
+        SELECT uf.follow_id as userId,u.username as username,u.avatar as avatar
+        FROM `user_follow` uf left join `user` u on uf.follow_id = u.id
+        where uf.user_id = #{id}
+
+    </select>
+    <select id="getFansListById" resultType="com.lrh.entity.vo.UserFollowVo">
+        SELECT uf.user_id as userId,u.username as username,u.avatar as avatar
+        FROM `user_follow` uf left join `user` u on uf.user_id = u.id
+        where uf.follow_id = #{id}
+    </select>
+</mapper>

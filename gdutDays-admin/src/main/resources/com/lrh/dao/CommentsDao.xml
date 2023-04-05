@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--MyBatis配置文件-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lrh.dao.CommentsDao">
+
+    <select id="showComments" resultType="com.lrh.entity.vo.CommentsVo">
+        SELECT c.id as id,u.username as nickname,u.avatar as avatar,uu.username as toNickname,c.comments as content,DATE_FORMAT(from_unixtime(c.create_date),"%Y-%m-%d %T") as createDate,c.user_id as userId
+        FROM `comments` c left join `user` u on c.user_id = u.id left join `user` uu on c.touser_id = uu.id
+        where c.article_id = #{articleId}
+    </select>
+</mapper>
