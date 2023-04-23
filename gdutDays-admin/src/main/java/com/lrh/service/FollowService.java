@@ -1,6 +1,7 @@
 package com.lrh.service;
 
 import com.lrh.entity.Result;
+import com.lrh.entity.param.FollowParam;
 
 public interface FollowService {
 
@@ -13,4 +14,6 @@ public interface FollowService {
     Result getFansListById(Long id,int page);
 
     boolean isFollowed(Long aid,Long bid);
+
+    Result followOperation(FollowParam followParam);
 }

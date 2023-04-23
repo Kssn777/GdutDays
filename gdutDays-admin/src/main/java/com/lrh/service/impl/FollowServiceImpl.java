@@ -9,6 +9,7 @@ import com.lrh.dao.UserFollowDao;
 import com.lrh.entity.Result;
 import com.lrh.entity.User;
 import com.lrh.entity.UserFollow;
+import com.lrh.entity.param.FollowParam;
 import com.lrh.entity.vo.UserFollowVo;
 import com.lrh.service.FollowService;
 import com.lrh.utils.UserThreadLocal;
@@ -70,5 +71,23 @@ public class FollowServiceImpl implements FollowService {
                 .eq(UserFollow::getFollowId,bid);
         UserFollow userFollow = userFollowDao.selectOne(wrapper);
         return userFollow != null;
+    }
+
+    @Override
+    //TODO 在表上建立userId和followId的联合索引 方便做取关关注操作
+    public Result followOperation(FollowParam followParam) {
+        User user = UserThreadLocal.get();
+        Long userId = user.getId();
+        Long followId = followParam.getTargetId();
+        int op = followParam.getOp();
+        if(op == 1){
+            UserFollow userFollow = new UserFollow();
+            userFollow.setFollowId(followId);
+            userFollow.setUserId(userId);
+            userFollowDao.insert(userFollow);
+        }else{
+            userFollowDao.delete(new LambdaQueryWrapper<UserFollow>().eq(UserFollow::getUserId,userId).eq(UserFollow::getFollowId,followId));
+        }
+        return Result.success(null);
     }
 }

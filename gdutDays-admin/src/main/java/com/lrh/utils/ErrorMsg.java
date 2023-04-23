@@ -7,7 +7,8 @@ public enum ErrorMsg {
     REGISTER_PARAM_ERROR(1003,"请填写完整注册信息"),
     REGISTER_FAIL(1004,"该账号已被注册"),
     USER_EXPIRE(1005,"用户已过期，请重新登录"),
-    TOKEN_ERROR(1006,"token不合法");
+    TOKEN_ERROR(1006,"token不合法"),
+    FILE_ERROR(1007,"图片格式错误");
 
     private Integer code;
     private String message;

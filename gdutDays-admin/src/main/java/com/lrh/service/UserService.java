@@ -10,4 +10,6 @@ public interface UserService {
     Result findUserByToken(String token);
 
     Result getUserInfoById(Long id);
+
+    Result changeAvatar(String avatar);
 }

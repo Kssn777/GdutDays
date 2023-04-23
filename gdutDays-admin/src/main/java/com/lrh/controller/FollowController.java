@@ -1,12 +1,10 @@
 package com.lrh.controller;
 
 import com.lrh.entity.Result;
+import com.lrh.entity.param.FollowParam;
 import com.lrh.service.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lrh
@@ -37,6 +35,11 @@ public class FollowController {
     @GetMapping("fans/{id}/{page}")
     public Result getFansListById(@PathVariable("id") Long id,@PathVariable("page")int page){
         return followService.getFansListById(id,page);
+    }
+
+    @PutMapping("follow")
+    public Result followOperation(@RequestBody FollowParam followParam){
+        return followService.followOperation(followParam);
     }
 
 

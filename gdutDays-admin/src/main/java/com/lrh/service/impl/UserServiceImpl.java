@@ -8,6 +8,7 @@ import com.lrh.entity.vo.UserVo;
 import com.lrh.service.LoginService;
 import com.lrh.service.UserService;
 import com.lrh.utils.ErrorMsg;
+import com.lrh.utils.UserThreadLocal;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,5 +63,14 @@ public class UserServiceImpl implements UserService {
         UserVo userVo = new UserVo();
         BeanUtils.copyProperties(user,userVo);
         return Result.success(userVo);
+    }
+
+    @Override
+    public Result changeAvatar(String avatar) {
+        User user = new User();
+        user.setId(UserThreadLocal.get().getId());
+        user.setAvatar(avatar);
+        userDao.updateById(user);
+        return Result.success(null);
     }
 }
