@@ -2,6 +2,7 @@ package com.lrh.controller;
 
 import com.lrh.entity.Result;
 import com.lrh.entity.param.ArticleLikesParam;
+import com.lrh.entity.param.ArticleParam;
 import com.lrh.entity.param.PageParam;
 import com.lrh.entity.param.SearchParam;
 import com.lrh.service.ArticleService;
@@ -19,6 +20,7 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+
 
     /**
      * 分页获取文章列表
@@ -58,5 +60,15 @@ public class ArticleController {
     @GetMapping("view/{id}")
     public Result view(@PathVariable("id")Long id,@RequestHeader(value = "Authorization",required = false)String token){
         return articleService.view(id,token);
+    }
+
+    @PostMapping("/create")
+    public Result create(@RequestBody ArticleParam articleParam){
+        return articleService.create(articleParam);
+    }
+
+    @GetMapping("/{id}/{page}")
+    public Result getArticlesById(@PathVariable Long id,@PathVariable int page){
+        return articleService.getArticlesById(id,page);
     }
 }

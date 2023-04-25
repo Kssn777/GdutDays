@@ -38,6 +38,7 @@ public class WebmvcConfig implements WebMvcConfigurer {
             .addPathPatterns("/fans/current/{page}")
             .addPathPatterns("/follow")
             .addPathPatterns("/file/upload")
+            .addPathPatterns("/article/create")
         ;
 
     }

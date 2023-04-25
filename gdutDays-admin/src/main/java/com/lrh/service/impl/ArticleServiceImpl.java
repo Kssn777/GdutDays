@@ -11,6 +11,7 @@ import com.lrh.entity.ArticleLikes;
 import com.lrh.entity.Result;
 import com.lrh.entity.User;
 import com.lrh.entity.param.ArticleLikesParam;
+import com.lrh.entity.param.ArticleParam;
 import com.lrh.entity.param.PageParam;
 import com.lrh.entity.param.SearchParam;
 import com.lrh.entity.vo.ArticleVo;
@@ -21,6 +22,7 @@ import com.lrh.utils.ErrorMsg;
 import com.lrh.utils.JWTUtils;
 import com.lrh.utils.UserThreadLocal;
 import com.sun.jmx.snmp.tasks.ThreadService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -50,6 +52,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private FollowService followService;
+
+    private static final int DEFAULT_SIZE = 10;
 
     @Override
     public Result listArticles(PageParam pageParam,String token) {
@@ -111,5 +115,28 @@ public class ArticleServiceImpl implements ArticleService {
         boolean followed = followService.isFollowed(userId, authorId);
         articleVo.setIsFollowed(followed?1:0);
         return Result.success(articleVo);
+    }
+
+    @Override
+    public Result create(ArticleParam articleParam) {
+        Article article = new Article();
+        BeanUtils.copyProperties(articleParam,article);
+
+        article.setCreateDate(System.currentTimeMillis()/1000);
+        article.setCommentCounts(0);
+        article.setAuthorId(UserThreadLocal.get().getId());
+        article.setScore(0.0);
+        article.setLikenums(0);
+
+
+        articleDao.insert(article);
+        return Result.success(null);
+    }
+
+    @Override
+    public Result getArticlesById(Long id,int page) {
+        Page<Article> p = new Page<Article>(page,DEFAULT_SIZE);
+        IPage<Article> ip = articleDao.getArticlesById(p,id);
+        return Result.success(ip);
     }
 }

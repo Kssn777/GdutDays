@@ -12,4 +12,6 @@ public interface ArticleDao extends BaseMapper<Article> {
     IPage<ArticleVo> searchArticles(Page<ArticleVo> page,String keyword);
 
     ArticleVo viewById(Long id, Long userId);
+
+    IPage<Article> getArticlesById(Page<Article> p, Long id);
 }

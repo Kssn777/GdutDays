@@ -17,6 +17,6 @@ public class Comments {
     private Long userId;
     private Long touserId;
     private String comments;
-    private String createDate;
+    private Long createDate;
 
 }

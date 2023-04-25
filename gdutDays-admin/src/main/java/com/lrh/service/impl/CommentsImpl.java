@@ -50,7 +50,7 @@ public class CommentsImpl implements CommentsService {
         comments.setComments(content);
         comments.setTouserId(toUserId);
 
-        comments.setCreateDate(String.valueOf(System.currentTimeMillis()/1000));
+        comments.setCreateDate(System.currentTimeMillis()/1000);
         comments.setUserId(UserId);
 
         commentsDao.insert(comments);

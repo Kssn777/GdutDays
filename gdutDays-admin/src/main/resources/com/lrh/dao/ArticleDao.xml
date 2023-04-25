@@ -29,6 +29,11 @@
         from `article` a left join `user` u on a.author_id = u.id left join article_likes l on l.article_id = a.id and l.user_id = #{userId}
         where a.id = #{id}
     </select>
+    <select id="getArticlesById" resultType="com.lrh.entity.Article">
+        select a.id as id,a.title as title,a.content as content,a.create_date as createDate
+        from `article` as a
+        where author_id = #{id}
+    </select>
 
 
 </mapper>
