@@ -11,6 +11,9 @@ public interface CommentsDao extends BaseMapper<Comments> {
     IPage<CommentsVo> showComments(Page<CommentsVo> commentsVoPage, Long articleId);
 
     @Update("update article set comment_counts = comment_counts+1 where id = #{articleId}")
-    void updateCommentsCounts(Long articleId);
+    void addCommentsCounts(Long articleId);
+
+    @Update("update article set comment_counts = comment_counts-1 where id = #{articleId}")
+    void minusCommentsCounts(Long articleId);
 
 }

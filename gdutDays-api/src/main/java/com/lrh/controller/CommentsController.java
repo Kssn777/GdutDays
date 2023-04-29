@@ -18,6 +18,7 @@ public class CommentsController {
     @Autowired
     private CommentsService commentsService;
 
+
     @GetMapping("/{articleId}/{page}")
     public Result showComments(@PathVariable Long articleId,@PathVariable int page){
         return commentsService.showComments(articleId,page);
@@ -26,5 +27,11 @@ public class CommentsController {
     @PostMapping("/add")
     public Result addComments(@RequestBody CommentParam commentParam){
         return commentsService.addComments(commentParam);
+    }
+
+    @DeleteMapping("/delete")
+    public Result deleteComments(Long id){
+
+        return commentsService.deleteComments(id);
     }
 }

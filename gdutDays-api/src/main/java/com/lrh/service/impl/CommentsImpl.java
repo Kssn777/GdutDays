@@ -55,9 +55,17 @@ public class CommentsImpl implements CommentsService {
 
         commentsDao.insert(comments);
 
-        commentsDao.updateCommentsCounts(articleId);
+        commentsDao.addCommentsCounts(articleId);
 
         return Result.success(null);
 
+    }
+
+    @Override
+    public Result deleteComments(Long id) {
+        Comments comments = commentsDao.selectById(id);
+
+        commentsDao.minusCommentsCounts(comments.getArticleId());
+        return Result.success(commentsDao.deleteById(id));
     }
 }

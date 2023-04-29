@@ -9,4 +9,6 @@ public interface CommentsService {
 
 
     Result addComments(CommentParam commentParam);
+
+    Result deleteComments(Long id);
 }
